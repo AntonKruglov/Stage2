@@ -1,4 +1,4 @@
-const Calculator = require('../../calculator/calculator');
+const Calculator = require('../../app/calculator');
 const { expect } = require('chai');
 
 describe('the add function', function() {
