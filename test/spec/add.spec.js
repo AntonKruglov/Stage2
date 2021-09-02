@@ -1,16 +1,9 @@
 const Calculator = require('../../app/calculator');
 const { expect } = require('chai');
+const calculator = new Calculator();
+
 
 describe('the add function', function() {
-    let calculator;
-
-    beforeEach(() => {
-        calculator = new Calculator();
-    });
-
-    afterEach(() => {
-        calculator = null;
-    });
 
     it('should return the sum of 2 added numbers', function() {
         expect(calculator.add(3, 2)).to.be.equal(5);
