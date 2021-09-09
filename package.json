@@ -1,13 +1,13 @@
 {
-    "name": "unit_testing_project",
+    "name": "selenium_webdriver_project",
     "version": "1.0.0",
-    "description": " unit testing progect using mocha for stage2",
+    "description": " selenium_webdriver_project for stage2",
     "main": "index.js",
     "directories": {
         "test": "test"
     },
     "scripts": {
-        "test": "mocha",
+        "test": "mocha --timeout 50000",
         "coverage": "nyc npm run test"
     },
     "repository": {
@@ -34,9 +34,22 @@
         }
     },
     "devDependencies": {
+        "@typescript-eslint/parser": "^4.30.0",
+        "@wdio/allure-reporter": "^7.10.1",
+        "@wdio/cli": "^7.11.1",
+        "@wdio/local-runner": "^7.11.1",
+        "@wdio/mocha-framework": "^7.11.1",
+        "@wdio/spec-reporter": "^7.10.1",
         "chai": "^4.3.4",
+        "chromedriver": "^93.0.1",
         "husky": "^7.0.2",
         "mocha": "^9.1.0",
-        "nyc": "^15.1.0"
+        "nyc": "^15.1.0",
+        "ts-node": "^10.2.1",
+        "typescript": "^4.4.2",
+        "wdio-chromedriver-service": "^7.2.0"
+    },
+    "dependencies": {
+        "selenium-webdriver": "^4.0.0-beta.4"
     }
 }

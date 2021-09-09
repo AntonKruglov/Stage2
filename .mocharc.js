@@ -1,6 +1,6 @@
 "use strict";
 
 module.exports = {
-    spec: 'test/**/*.spec.js',
+    spec: 'test/**/*.js',
     reporter: 'spec'
 };
