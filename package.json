@@ -1,0 +1,42 @@
+{
+    "name": "unit_testing_project",
+    "version": "1.0.0",
+    "description": " unit testing progect using mocha for stage2",
+    "main": "index.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test": "mocha",
+        "coverage": "nyc npm run test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AntonKruglov/Stage2.git"
+    },
+    "keywords": [
+        "mocha",
+        "unit",
+        "testing"
+    ],
+    "author": "Anton Kruglov",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AntonKruglov/Stage2/issues"
+    },
+    "homepage": "https://github.com/AntonKruglov/Stage2#readme",
+    "nyc": {
+        "reporter": "html"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run coverage"
+        }
+    },
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "husky": "^7.0.2",
+        "mocha": "^9.1.0",
+        "nyc": "^15.1.0"
+    }
+}
