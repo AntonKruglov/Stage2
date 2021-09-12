@@ -20,7 +20,7 @@ class GoogleCloudCalculationResultsPage extends BasePage {
     get refreshBtn() { return $('#refresh') };
     get estimatedCostFromGoogle() { return $('//*[@id="mail"]/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td[2]') };
     get getTextBtn() { return $('//*[text()="Text"]') };
-    get requiredFrame2() { return $(`.bodymail yscrollbar`) };
+
 
 
 

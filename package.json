@@ -1,13 +1,13 @@
 {
-    "name": "selenium_webdriver_project",
+    "name": "webdriverio_project",
     "version": "1.0.0",
-    "description": " selenium_webdriver_project for stage2",
+    "description": " webdriverio_project for stage2",
     "main": "index.js",
     "directories": {
         "test": "test"
     },
     "scripts": {
-        "test": "mocha --timeout 50000",
+        "test": "wdio ./wdio.conf.js",
         "coverage": "nyc npm run test"
     },
     "repository": {
