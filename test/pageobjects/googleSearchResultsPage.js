@@ -19,5 +19,4 @@ class GoogleSearchResultsPage extends BasePage {
 
 };
 
-
 module.exports = new GoogleSearchResultsPage;

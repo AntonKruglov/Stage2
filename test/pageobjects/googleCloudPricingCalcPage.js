@@ -75,5 +75,4 @@ class GoogleCloudPricingCalcPage extends BasePage {
 
 };
 
-
 module.exports = new GoogleCloudPricingCalcPage;

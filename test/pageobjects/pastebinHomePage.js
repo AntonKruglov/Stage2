@@ -79,5 +79,4 @@ class PastebinHomePage extends BasePage {
 
 };
 
-
 module.exports = new PastebinHomePage;

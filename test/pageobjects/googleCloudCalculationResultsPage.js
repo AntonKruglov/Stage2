@@ -80,5 +80,4 @@ class GoogleCloudCalculationResultsPage extends BasePage {
 
 };
 
-
 module.exports = new GoogleCloudCalculationResultsPage;

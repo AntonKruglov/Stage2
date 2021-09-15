@@ -27,5 +27,4 @@ class GoogleCloudHomePage extends BasePage {
 
 };
 
-
 module.exports = new GoogleCloudHomePage;

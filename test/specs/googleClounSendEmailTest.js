@@ -99,4 +99,5 @@ describe('Google Cloud Platform Pricing Calculator', () => {
                 .estimatedCostFromGoogle, '1,083.33')
     });
 
+
 });

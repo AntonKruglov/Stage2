@@ -47,4 +47,5 @@ describe('add new paste', () => {
                 .successfulPostingMessage, 'Your guest paste has been posted');
     })
 
+
 });
