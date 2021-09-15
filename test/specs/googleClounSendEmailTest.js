@@ -4,7 +4,6 @@ const googleSearchResultsPage = require('../pageobjects/googleSearchResultsPage'
 const googleCloudCalculationResultsPage = require('../pageobjects/googleCloudCalculationResultsPage');
 
 
-
 describe('Google Cloud Platform Pricing Calculator', () => {
 
     const textToSearch = 'Google Cloud Platform Pricing Calculator';
@@ -12,7 +11,8 @@ describe('Google Cloud Platform Pricing Calculator', () => {
 
     before(async() => {
 
-        await googleCloudHomePage.open();
+        await googleCloudHomePage
+            .open();
 
         await googleCloudHomePage
             .search(googleCloudHomePage.activeSearchBtn, googleCloudHomePage.activeSearchBox, textToSearch);
@@ -21,53 +21,53 @@ describe('Google Cloud Platform Pricing Calculator', () => {
             .swichToSearchResultsPage(googleSearchResultsPage.cloudPlatformCalcSearchResult);
 
         await googleCloudPricingCalcPage
-            .activateRequiredFrame(googleCloudPricingCalcPage.requiredFrame);
+            .activateRequiredFrame();
 
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(googleCloudPricingCalcPage.operatingSystemList, googleCloudPricingCalcPage.operatingSystemFree);
+            .selectFromDropDownListByCss(googleCloudPricingCalcPage.operatingSystemList, googleCloudPricingCalcPage.operatingSystemFree)
 
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(googleCloudPricingCalcPage.machineClassList, googleCloudPricingCalcPage.machineClassRegular);
+            .selectFromDropDownListByCss(googleCloudPricingCalcPage.machineClassList, googleCloudPricingCalcPage.machineClassRegular)
 
         await googleCloudPricingCalcPage
             .setNumberValueIntoField(googleCloudPricingCalcPage.numberOfInstancesField, numberOfInstances);
 
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(
+            .selectFromDropDownListByXpath(
                 googleCloudPricingCalcPage.seriesList, googleCloudPricingCalcPage.seriesNumberN1);
 
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(
+            .selectFromDropDownListMixed(
                 googleCloudPricingCalcPage.machineTypeList, googleCloudPricingCalcPage.machineTypeN1vCPU8andRAM30);
 
         await googleCloudPricingCalcPage
             .switchTheckbox(googleCloudPricingCalcPage.addGpu);
 
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(
+            .selectFromDropDownListMixed(
                 googleCloudPricingCalcPage.numberOfGpuList, googleCloudPricingCalcPage.numberOfGpuIsOne);
 
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(
+            .selectFromDropDownListByXpath(
                 googleCloudPricingCalcPage.typeOfGpuList, googleCloudPricingCalcPage.typeOfGpuIsTeslaV100
             );
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(
+            .selectFromDropDownListByCss(
                 googleCloudPricingCalcPage.localSsdList, googleCloudPricingCalcPage.localSsd2x375gb
             );
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(
+            .selectFromDropDownListMixed(
                 googleCloudPricingCalcPage.datacenterLocationList, googleCloudPricingCalcPage.datacenterFrankfurtLocation
-            );
+            )
         await googleCloudPricingCalcPage
-            .selectFomDropDownList(googleCloudPricingCalcPage.commitedUsageList, googleCloudPricingCalcPage.commitedUsageOneYear);
+            .selectFromDropDownListByCss(googleCloudPricingCalcPage.commitedUsageList, googleCloudPricingCalcPage.commitedUsageOneYear)
 
         await googleCloudPricingCalcPage
-            .clickTheButton(googleCloudPricingCalcPage.estimateBtn);
+            .clickTheButton(googleCloudPricingCalcPage.estimateBtn)
 
-        await googleCloudPricingCalcPage.clickTheButton(googleCloudCalculationResultsPage.emailEstimateBtn);
 
-        browser.newWindow('https://yopmail.com/en/');
+        driver.switchTo().newWindow('https://yopmail.com/en/');
+
 
         await googleCloudPricingCalcPage.clickTheButton(googleCloudCalculationResultsPage.randomEmailBtn);
 
@@ -75,7 +75,7 @@ describe('Google Cloud Platform Pricing Calculator', () => {
 
         await googleCloudCalculationResultsPage.swichToAnotherWindow('cloud.google.com/products/');
 
-        await googleCloudPricingCalcPage.activateRequiredFrame(googleCloudPricingCalcPage.requiredFrame);
+        await googleCloudPricingCalcPage.activateRequiredFrame();
 
         await googleCloudCalculationResultsPage.fillInEmailField(googleCloudCalculationResultsPage.emailField);
 
@@ -94,7 +94,9 @@ describe('Google Cloud Platform Pricing Calculator', () => {
 
     it('should check the total estimated monthly cost in letter matches the one in the calculator', async() => {
 
-        await expect(googleCloudCalculationResultsPage.estimatedCostFromGoogle).toHaveTextContaining('1,083.33');
+        await googleCloudCalculationResultsPage
+            .checkEstimatedCost(googleCloudCalculationResultsPage
+                .estimatedCostFromGoogle, '1,083.33')
     });
 
 });

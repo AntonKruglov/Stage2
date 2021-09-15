@@ -1,6 +1,16 @@
-module.exports = class BasePage {
+const webdriver = require('selenium-webdriver');
+const driver = new webdriver.Builder().forBrowser('chrome').build();
 
-    open(path) {
-        return browser.url(path)
+
+class BasePage {
+    constructor() {
+        global.driver = driver;
+    }
+
+    open(baseUrl) {
+        driver.get(baseUrl);
     }
 }
+
+
+module.exports = BasePage;

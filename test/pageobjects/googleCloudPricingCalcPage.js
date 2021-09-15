@@ -1,80 +1,77 @@
+const { Builder, By, Key, until } = require('selenium-webdriver');
 const BasePage = require('./basePage');
+const webdriver = require('selenium-webdriver');
 
 
 class GoogleCloudPricingCalcPage extends BasePage {
 
+    constructor() {
+        super();
 
-
-    get requiredFrame() { return $('//*[@id="gc-wrapper"]/main') };
-    get operatingSystemList() { return $('div.compute-engine-block div.ng-scope form #select_value_label_61.md-select-value span.md-select-icon') };
-    get operatingSystemFree() { return $('#select_option_70 > div:nth-child(1)') };
-    get machineClassList() { return $('#select_value_label_62.md-select-value span.md-select-icon') };
-    get machineClassRegular() { return $('#select_option_83 > div.md-text') };
-    get numberOfInstancesField() { return $('//*[@id="input_68"]') };
-    get seriesList() { return $('//*[@name="series"]') };
-    get seriesNumberN1() { return $('//md-option[@value="n1"]') };
-    get machineTypeList() { return $('//label[text()="Machine type"]/parent::md-input-container') };
-    get machineTypeN1vCPU8andRAM30() { return $('[value="CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-8"]') };
-    get addGpu() { return $('[aria-label="Add GPUs"]') };
-    get numberOfGpuList() { return $('//md-select[@placeholder="Number of GPUs"]') }
-    get numberOfGpuIsOne() { return $('md-option[value="1"][ng-disabled="item.value != 0 && item.value < listingCtrl.minGPU"]') };
-    get typeOfGpuList() { return $('//md-select[@placeholder="GPU type"]') };
-    get typeOfGpuIsTeslaV100() { return $('//md-option[@value="NVIDIA_TESLA_V100"] ') };
-    get localSsdList() { return $('#select_value_label_392') };
-    get localSsd2x375gb() { return $('#select_option_419 > div:nth-child(1)') };
-    get datacenterLocationList() { return $('//md-select[@placeholder="Datacenter location"]') };
-    get datacenterFrankfurtLocation() {
-        return $('#select_option_219.ng-scope.md-ink-ripple div.md-text.ng-binding');
+        this.operatingSystemList = ('#select_value_label_62 > span:nth-child(2)');
+        this.operatingSystemFree = ('#select_option_71 > div:nth-child(1)');
+        this.machineClassList = ('#select_value_label_63 > span:nth-child(1)');
+        this.machineClassRegular = ('#select_option_83 > div.md-text');
+        this.numberOfInstancesField = ('[ng-model="listingCtrl.computeServer.quantity"]');
+        this.seriesList = ('//*[@name="series"]');
+        this.seriesNumberN1 = ('//md-option[@value="n1"]');
+        this.machineTypeList = ('//label[text()="Machine type"]/parent::md-input-container');
+        this.machineTypeN1vCPU8andRAM30 = ('[value="CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-8"]');
+        this.addGpu = ('[aria-label="Add GPUs"]');
+        this.numberOfGpuList = ('//md-select[@placeholder="Number of GPUs"]');
+        this.numberOfGpuIsOne = ('md-option[value="1"][ng-disabled="item.value != 0 && item.value < listingCtrl.minGPU"]')
+        this.typeOfGpuList = ('//md-select[@placeholder="GPU type"]');
+        this.typeOfGpuIsTeslaV100 = ('//md-option[@value="NVIDIA_TESLA_V100"] ');
+        this.localSsdList = ('#select_value_label_392');
+        this.localSsd2x375gb = ('#select_option_419 > div:nth-child(1)');
+        this.datacenterLocationList = ('//md-select[@placeholder="Datacenter location"]');
+        this.datacenterFrankfurtLocation = ('#select_option_219.ng-scope.md-ink-ripple div.md-text.ng-binding');
+        this.commitedUsageList = ('#select_104');
+        this.commitedUsageOneYear = ('#select_option_102.md-ink-ripple div.md-text');
+        this.estimateBtn = ('#mainForm > div:nth-child(3) div:nth-child(1) > form div.layout-align-end-start');
     }
-    get commitedUsageList() { return $('#select_104') };
-    get commitedUsageOneYear() {
-        return $('#select_option_102.md-ink-ripple div.md-text');
-    }
-    get estimateBtn() { return $('//button[@class="md-raised md-primary cpc-button md-button md-ink-ripple"][@aria-label="Add to Estimate"][1]') };
-
-
 
     async activateRequiredFrame(section) {
-        await section.waitForExist()
-        browser.switchToFrame(0)
-        browser.switchToFrame(0)
-    };
+        driver.switchTo().frame(0);
+        driver.switchTo().frame(0);
 
+    };
 
     async setNumberValueIntoField(fieldToFillIn, value) {
-        await fieldToFillIn.waitForExist();
-        await fieldToFillIn.setValue(value);
+        await driver.wait(until.elementLocated(By.css(fieldToFillIn)), 5000)
+            .sendKeys(value)
     };
 
-
-    async selectFomDropDownList(param, list) {
-
-        await param.waitForClickable();
-        await param.click();
-        await list.waitForClickable();
-        await list.click();
+    async selectFromDropDownListByCss(list, param) {
+        await driver.wait(until.elementLocated(By.css(list)), 5000)
+            .click();
+        await driver.wait(until.elementLocated(By.css(param)), 5000)
+            .click();
     };
 
+    async selectFromDropDownListByXpath(list, param) {
+        await driver.wait(until.elementLocated(By.xpath(list)), 5000)
+            .click();
+        await driver.wait(until.elementLocated(By.xpath(param)), 5000)
+            .click();
+    };
+
+    async selectFromDropDownListMixed(list, param) {
+        await driver.wait(until.elementLocated(By.xpath(list)), 5000)
+            .click();
+        await driver.wait(until.elementLocated(By.css(param)), 5000)
+            .click();
+    };
 
     async switchTheckbox(item) {
-
-        await item.waitForClickable();
-        await item.click();
-
+        await driver.wait(until.elementLocated(By.css(item), 5000))
+            .click();
     };
-
-
-    async fillInTextField(fieldToFillIn, textToAdd) {
-        await fieldToFillIn.waitForExist();
-        await fieldToFillIn.setValue(textToAdd);
-    };
-
 
     async clickTheButton(btn) {
-        await btn.waitForClickable();
-        await btn.click();
+        await driver.wait(until.elementLocated(By.css(btn), 5000))
+            .click();
     }
-
 
 };
 

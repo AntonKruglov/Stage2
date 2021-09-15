@@ -28,21 +28,23 @@ describe('add new paste', () => {
 
 
     it('should check if the posted text is correct', async() => {
-        await expect(pastebinHomePage.postedPasteField).toHaveText(codeToPoste);
+        await pastebinHomePage
+            .checkPostedText(pastebinHomePage.postedPasteField, codeToPoste);
     })
 
     it('should check if the browser title is correct', async() => {
-        await expect(browser).toHaveTitleContaining(pasteName);
+        await pastebinHomePage.checkBrowserTitle(pasteName);
     })
 
-    it('should check if the syntax highlighting is bash ', async() => {
-        await expect(pastebinHomePage.resultingHighlightingField)
-            .toHaveText(requiredHighlighting);
+    it('should check if the syntax highlighting is bash', async() => {
+        await pastebinHomePage
+            .checkIsBash(pastebinHomePage.resultingHighlightingField, requiredHighlighting);
     })
 
     it('should confirm the paste is posted', async() => {
-        await expect(pastebinHomePage.successfulPostingMessage)
-            .toHaveTextContaining('Your guest paste has been posted');
+        await pastebinHomePage
+            .checkPasteIsPosted(pastebinHomePage
+                .successfulPostingMessage, 'Your guest paste has been posted');
     })
 
 });

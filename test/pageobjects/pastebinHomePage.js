@@ -1,48 +1,81 @@
 const BasePage = require('./basePage');
+const { Builder, By, Key, until } = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver');
+const { expect } = require('chai');
+
+
 
 class PastebinHomePage extends BasePage {
 
-    get pasteTextField() { return $('#postform-text') };
+    constructor() {
+        super();
+        this.pasteTextField = ('#postform-text');
+        this.pasteExpirationList = ('#select2-postform-expiration-container');
+        this.pasteExpiration10Minutes = ('//li[text()="10 Minutes"]');
+        this.pasteNameOrTitleInput = ('#postform-name')
+        this.createNewPasteBtn = ('//button[text()="Create New Paste"]');
+        this.successfulPostingMessage = ('//div[text()=" Your guest paste has been posted. If you "]');
+        this.postedPasteField = ('.textarea');
+        this.syntaxHighlightingList = ('#select2-postform-format-container');
+        this.syntaxHighlightingBash = ('//li[text()="Bash"]');
+        this.syntaxSwitcher = ('//label[@for="paste-raw-on"]');
+        this.resultingHighlightingField = ('//a[text()="Bash"]');
 
-    get pasteExpirationList() { return $('#select2-postform-expiration-container') }
-    get pasteExpiration10Minutes() { return $('//li[text()="10 Minutes"]') };
-    get pasteNameOrTitleInput() { return $('#postform-name') }
-    get createNewPasteBtn() { return $('//button[text()="Create New Paste"]') };
-    get successfulPostingMessage() { return $('//div[text()=" Your guest paste has been posted. If you "]') };
-    get postedPasteField() { return $('.textarea') };
-    get syntaxHighlightingList() { return $('#select2-postform-format-container') };
-    get syntaxHighlightingBash() { return $('//li[text()="Bash"]') };
-    get syntaxSwitcher() { return $('//label[@for="paste-raw-on"]') };
-    get resultingHighlightingField() { return $('//a[text()="Bash"]') };
+        this.baseUrl = 'https://pastebin.com'
+
+    }
 
 
     open() {
-        return super.open('https://pastebin.com');
+        return super.open(this.baseUrl);
     }
 
     async fillInTextField(fieldToFillIn, textToAdd) {
-        await fieldToFillIn.waitForExist();
-        await fieldToFillIn.setValue(textToAdd);
+        await driver.wait(until.elementLocated(By.css(fieldToFillIn), 5000))
+            .sendKeys(textToAdd);
     }
 
     async chooseFromDropdownList(listToChoose, requiredValue) {
-        await listToChoose.waitForClickable();
-        await listToChoose.click();
-        await requiredValue.waitForClickable();
-        await requiredValue.click();
+        await driver.wait(until.elementLocated(By.css(listToChoose), 5000))
+            .click();
+        await driver.wait(until.elementLocated(By.xpath(requiredValue), 5000))
+            .click();
     }
 
     async clickTheButton(btn) {
-        await (await btn).waitForClickable();
-        await (await btn).click();
+        await driver.wait(until.elementLocated(By.xpath(btn), 5000))
+            .click();
+
     }
 
     async SwitchBtn(btn) {
-        await btn.waitForClickable();
-        await btn.click();
+        await driver.wait(until.elementLocated(By.xpath(btn), 5000))
+            .click();
     }
 
+    // assertions
+    async checkPostedText(field, text) {
+        await driver.wait(until.elementLocated(By.css(field), 5000));
+        const resultText = await driver.findElement(By.css(field)).getText();
+        await expect(resultText).to.include(text);
+    }
 
+    async checkBrowserTitle(text) {
+        let title = await driver.getTitle();
+        await expect(title).to.include(text);
+    }
+
+    async checkPasteIsPosted(field, text) {
+        await driver.wait(until.elementLocated(By.xpath(field), 5000));
+        const resultText = await driver.findElement(By.xpath(field)).getText();
+        await expect(resultText).to.include(text);
+    }
+
+    async checkIsBash(element, text) {
+        await driver.wait(until.elementLocated(By.xpath(element), 5000));
+        let checkedElement = await driver.findElement(By.xpath(element)).getText();
+        await expect(checkedElement).to.include(text);
+    }
 
 };
 
